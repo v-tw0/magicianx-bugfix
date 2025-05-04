@@ -1,69 +1,28 @@
-# Modified Mingda Magician X firmware :)
+# Mingda Magician X bugfix firmware 
 
-These are my edits of the MMX firmware, enjoy.
+NOTE: THIS IS FOR THE ST VARIANT OF THE PRINTER. GD RELEASE WILL COME SOON
+Credits go to justleader for this firmware, please check out the original: https://git.justleader.eu/justleader/mmx-marlin-custom
 
-## Support:
- - If you'd like to get help, suggest changes, or just generally discuss these modifications, you can join my Discord server here: https://discord.gg/e9fndmGUsY :)
+## Fixes:
+ - 🟢 **Increased thermal runaway tolerance:** Increased the tolerance of the thermal errors (runaway, mintemp, etc.) due to the inconsistency of the 20-pin x-axis gantry ribbon cable.
+        - If you need this, I highly recommend replacing the cable with a non OEM higher quality one. The manufacturer one is very poorly crimped and will break.
+ - 🟠 **Overshoot Reduction:** Regardless of what heater cartridge you use, there will be a large overshoot. This build aims to fix that by reducing the PID loop latency; still a WIP.
+ - 🔴 **GT Support:** TBD. 
+ - 🔴 **UI stuff:** Put more settings on the front page for easy access.
 
-## Edits and fixes:
- - Icons in print menu centered (moved one icon to the right)
- - PID_FUNCTIONAL_RANGE increased, as I had overshoot problems with the alloy hotend. (Eh, it still overshoots, but I don't really care anymore lol)
- - Languages added (Uncommented and fixed up) - cz, sk, cz2 (Czech, but more professional/literal/better translations, cz is kinda fun compared to this one)
-   - changes in Marlin/src/lcd/extui/lib/tsc/Language/ to add a language
-      - Language has to be included in Language.cpp
-         - Check line 2648, which links to the language pack, which you create in Language.cpp too, copy a pack and change the language code before all the variables, vscode has got you covered, you can select all the variables and in the Ctrl+F find menu, you can tell it to replace within selection.
-         - You then need to create the language file, it should be in the Language folder with all the other ones, and included in Language.cpp at the top.
-      - You have to add it to the menu, see file Language.h from line 6, this enum list also determines the order the languages are cycled in the language settings button.
- - Status information moved to top of screen next to ready message to free up 2 icon spaces (toggleable, see Marlin/Configuration.h)
- - Added CFW version to info menu
- - Changed long touch time in touch_process.cpp to not have to wait 3-5 business days in order to delete a file (not sure where else this delay might be used)
- - Added custom functions menu
-   - Find under main status screen > Functions, or if using old status screen, under main status screen > Menu > Settings > Functions
-   - Added button to resume print after M600 pause when not printing from inserted media (ex. OctoPrint/USB)
-   - Added button to calibrate touchscreen without having to create the reset.txt file
- - Because of the menu modifications, a few icons have been enabled, which previously only existed in the TFT35 folder, but weren't used when updating icons, if you see empty icons, download a TFT35 theme folder from either Mingda, or ![my themes repository](https://git.justleader.eu/justleader/mmx-marlin-themes), then install them.
- - Make Preheat filament types changeable (for now only in sourcecode before building) in Configuration.h
- - \+ there might be a few more changes, I try to add them to the list when they are finished
- 
-## Notes:
- - The firmware is by default set for the alloy hotend
-    - To change the nozzle temperature limit back from 315 to 275°C, comment out line 41 in Marlin/Configuration.h
-    ```
-    #define USE_TI_CHOKE        // 加入钛合金喉管
-    ```
-    - Alternatively, to change the temperature limit, check lines 545 to 549 in Marlin/Configuration.h out:
-    ```
-    #ifdef USE_TI_CHOKE
-    #define HEATER_0_MAXTEMP 315
-    #else
-    #define HEATER_0_MAXTEMP 275
-    #endif
-    ```
- - The firmwares in the ![releases](https://git.justleader.eu/justleader/mmx-marlin-custom/releases/) page have tags:
-    - xx-yy where xx is the GD or ST version and yy is either ti for alloy hotend, or nm for normal
-    - the tag can also be "multiple", if there are multiple types, in these cases, the files won't be named firmware.bin, but by their versions, as with the tags (xx-yy.bin), these must be renamed to firmware.bin before updating, or the printer will not acknowledge them.
- - The files for the GUI of the TFT screen are located at Marlin/src/lcd/extui/lib/tsc/Menu
- 
-## Installation:
- - Build the source, or download a build from the ![releases](https://git.justleader.eu/justleader/mmx-marlin-custom/releases/) page
- - If the .bin file isn't named firmware.bin already, rename it
- - Put the .bin file in the lowest folder of your portable storage
- - Put the storage into the printer and turn the printer on
- - Wait for the printer to update, you don't have to delete the firmware afterwards, as it gets renamed, but you can still delete the file after the update.
- - If your printer gets stuck at 100%, just leave it for a minute, then unplug the power and plug it back in. The printer should still be updated.
- - Done! You can now go check out some ![themes](https://git.jldr.eu/justleader/mmx-marlin-themes) too :)
-   - Consider installing an icon pack (can be the default one) when switching from the vanilla version, as there are unused icons in the vanilla version, that I use, and that don't get uploaded to the machine when updating icons with the vanilla firmware.
+ℹ️ If you want to modify and build this yourself, use platform.io extension in visual studio code.
 
-## Building
- - build the same as a normal Marlin firmware, I use vscode with the PlatformIO extension, from where you can build the project using the "PlatformIO: Build" button in the bottom buttons list
- - to change the firmware type (GD or ST), comment the unsuitable type in platformio.ini, line 21 and 22, for example to enable GD:
- ```
- default_envs = langgo407ve_gd
-; default_envs = langgo407ve_st
- ```
+## How to install:
+ - Make sure your printer is the ST variant by checking the **information** menu in your printer; if your model number is followed by **(S)**, then this will work. 
+ - Check out the **firmware.bin** in the releases tab.
+ - Place on SD card and restart your printer.
+ - The firmware file will be renamed to **firmware.cur** if successful; remove this file from your SD card.
+ - **IMPORTANT:** Run PID tuning using the controller application of your choice. Here are my recommended gcode commands:
+       - M303 E0 S220 C8
+       - M301 P<value> I<value> D<value> (Replace with results)
+       - M500
  
- 
-## Other customization
+## Other customizations (by ![justleader](https://git.justleader.eu/justleader))
  - Ready message: line 210 in Marlin/Configuration.h
    ```
      #define CUSTOM_MACHINE_NAME "MD D301 F4"
@@ -74,32 +33,8 @@ These are my edits of the MMX firmware, enjoy.
   - Uncomment `#define USEOLDSTATUSSCREEN` at the top in Marlin/Configuration.h, custom settings are at the top, before the Marlin configuration
 
 ## Current issues
- - None that I know of
-
-## TODO
- - Try to fix weird font when Czech language
-   - Change order of fonts in utf8_decode.cpp?
- - Add status message to in-print menu
- - Screen auto off timer?
-   - probably located in Menu/Settings/Other settings/
- - Temperature, Fan speed lock buttons to prevent GCODE changing custom settings
- - "Start with screen on/off" button
- - Add confirmation to Leveling button (missclick when printing from octoprint, pisses me off that it bypasses octoprint)
- - when USEOLDSTATUSSCREEN, put Functions menu to a new Other settings menu, where we can put more settings, maybe multiple pages, or a settings list?
- - Make more modifications undoable?
-   - Centering print menu icons
- - Add reset settings button somewhere
- - GCODE to resume print from terminal?
- - Add GCODE to manipulate all the settings currently only available on the touchscreen?
- - Make the language button open a list instead of cycling?
- - Skip storage selection menu when only one storage media type inserted?
-   - show error when no media inserted and return to main menu
- - https://github.com/MINGDA3D/KlipperScreen style menu? 👀
- - Look at some wifi connection options?
- - overhaul click handling (Marlin/src/lcd/extui/lib/tsc/Hal/touch_process.cpp)
- - respect silent mode setting when beeping
- - Custom GCODE to change all menu settings
-   - also things like preheat filament types (custom filament name)
+ - Overshoot tuning, I believe this is beyond the regular PID constant tuning. Hopefully the next build fixes this.
+ - 
 
 
 # Original README.md
