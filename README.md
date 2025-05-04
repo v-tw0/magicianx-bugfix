@@ -5,7 +5,7 @@ Credits go to justleader for this firmware, please check out the original: https
 
 ## Fixes:
  - 🟢 **Increased thermal runaway tolerance:** Increased the tolerance of the thermal errors (runaway, mintemp, etc.) due to the inconsistency of the 20-pin x-axis gantry ribbon cable.
-        - If you need this, I highly recommend replacing the cable with a non OEM higher quality one. The manufacturer one is very poorly crimped and will break.
+ > If you need this, I highly recommend replacing the cable with a non OEM higher quality one. The manufacturer one is very poorly crimped and will break.
  - 🟠 **Overshoot Reduction:** Regardless of what heater cartridge you use, there will be a large overshoot. This build aims to fix that by reducing the PID loop latency; still a WIP.
  - 🔴 **GT Support:** TBD. 
  - 🔴 **UI stuff:** Put more settings on the front page for easy access.
@@ -17,11 +17,13 @@ Credits go to justleader for this firmware, please check out the original: https
  - Check out the **firmware.bin** in the releases tab.
  - Place on SD card and restart your printer.
  - The firmware file will be renamed to **firmware.cur** if successful; remove this file from your SD card.
- - **IMPORTANT:** Run PID tuning using the controller application of your choice. Here are my recommended gcode commands:
-       - M303 E0 S220 C8
-       - M301 P<value> I<value> D<value> (Replace with results)
-       - M500
- 
+ - **IMPORTANT:** Run PID tuning using the controller application of your choice. Here are my recommended gcode commands that work fairly well:
+```
+   - M303 E0 S220 C8
+   - M301 P<value> I<value> D<value> ; Replace with results
+   - M500
+```
+
 ## Other customizations (by ![justleader](https://git.justleader.eu/justleader))
  - Ready message: line 210 in Marlin/Configuration.h
    ```
