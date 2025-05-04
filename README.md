@@ -5,7 +5,7 @@ Credits go to justleader for this firmware, please check out the original: https
 
 ## Fixes:
  - 🟢 **Increased thermal runaway tolerance:** Increased the tolerance of the thermal errors (runaway, mintemp, etc.) due to the inconsistency of the 20-pin x-axis gantry ribbon cable.
- > If you need this, I highly recommend replacing the cable with a non OEM higher quality one. The manufacturer one is very poorly crimped and will break.
+ > ↑ If you need this, I highly recommend replacing the cable with a non OEM higher quality one. The manufacturer one is very poorly crimped and will break.
  - 🟠 **Overshoot Reduction:** Regardless of what heater cartridge you use, there will be a large overshoot. This build aims to fix that by reducing the PID loop latency; still a WIP.
  - 🔴 **GT Support:** TBD. 
  - 🔴 **UI stuff:** Put more settings on the front page for easy access.
