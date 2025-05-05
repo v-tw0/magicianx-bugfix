@@ -8,7 +8,6 @@
 
 
 //                New status screen settings
-//    Uncomment to enable
 
 //#define USEOLDSTATUSSCREEN // Revert modifications to the main status screen
 // TODO: Make work and add option to remove ready message too
