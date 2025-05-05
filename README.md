@@ -1,6 +1,7 @@
 # Mingda Magician X bugfix firmware 
 
 NOTE: THIS IS FOR THE ST VARIANT OF THE PRINTER. GD RELEASE WILL COME SOON
+
 Credits go to justleader for this firmware, please check out the original: https://git.justleader.eu/justleader/mmx-marlin-custom
 
 ## Fixes:
