@@ -5,7 +5,7 @@ NOTE: THIS IS FOR THE ST VARIANT OF THE PRINTER. GD RELEASE WILL COME SOON
 Credits go to justleader for this firmware, please check out the original: https://git.justleader.eu/justleader/mmx-marlin-custom
 
 ## Fixes:
- - 🟢 **Increased thermal runaway tolerance:** Increased the tolerance of the thermal errors (runaway, mintemp, etc.) due to the inconsistency of the 20-pin x-axis gantry ribbon cable.
+ - 🟢 **Increased thermal runaway tolerance:** Increased the tolerance of the thermal errors (runaway, mintemp, etc.) due to the inconsistency of the 20-pin x-axis gantry ribbon cable. The increase is still well within the safety margins.
  > ↑ If you need this, I highly recommend replacing the cable with a non OEM higher quality one. The manufacturer one is very poorly crimped and will break.
  - 🟢 **Overshoot Reduction:** Stock firmware leaves PID_FUNCTIONAL_RANGE at 100, which is way more than what it should be; regardless of what heater cartridge you use, there will be a large overshoot. You can adjust it yourself but (default + overshoot) is used in this build, which reduces overshoot to <3C vs 10-15C.
  - 🟠 **Bed lining clearance:** After homing the printer for an initial print, certain thinner PEI sheets will be lower than the plastic that lines the bed to prevent it from moving. The nozzle now moves X=Y=10mm to prevent itself from lowering the Z too fast and hitting the plastic (only when print starts).  
