@@ -8,6 +8,7 @@ Credits go to justleader for this firmware, please check out the original: https
  - 🟢 **Increased thermal runaway tolerance:** Increased the tolerance of the thermal errors (runaway, mintemp, etc.) due to the inconsistency of the 20-pin x-axis gantry ribbon cable. The increase is still well within the safety margins.
  > ↑ If you need this, I highly recommend replacing the cable with a non OEM higher quality one. The manufacturer one is very poorly crimped and will break.
  - 🟢 **Overshoot Reduction:** Stock firmware leaves PID_FUNCTIONAL_RANGE at 100, which is way more than what it should be; regardless of what heater cartridge you use, there will be a large overshoot. You can adjust it yourself but (default + overshoot) is used in this build, which reduces overshoot to <3C vs 10-15C.
+ - 🟢 **Unload feature:** Adds the 'unload' option in the extrude menu, which is featured in Magician X2 printers.
  - 🟠 **Bed lining clearance:** After homing the printer for an initial print, certain thinner PEI sheets will be lower than the plastic that lines the bed to prevent it from moving. The nozzle now moves X=Y=10mm to prevent itself from lowering the Z too fast and hitting the plastic (only when print starts).  
  - 🔴 **GT Support:** TBD. 
  - 🔴 **UI stuff:** Put more settings on the front page for easy access.
@@ -15,11 +16,11 @@ Credits go to justleader for this firmware, please check out the original: https
 ℹ️ If you want to modify and build this yourself, use platform.io extension in visual studio code.
 
 ## How to install:
- - Make sure your printer is the ST variant by checking the **information** menu in your printer; if your model number is followed by **(S)**, then this will work. 
- - Check out the **firmware.bin** in the releases tab.
- - Place on SD card and restart your printer.
- - The firmware file will be renamed to **firmware.cur** if successful; remove this file from your SD card.
- - **IMPORTANT:** Run PID tuning using the controller application of your choice. Here are my recommended gcode commands that work fairly well:
+1. Make sure your printer is the ST variant by checking the **information** menu in your printer; if your model number is followed by **(S)**, then this will work.
+2. Check out the **firmware.bin** in the releases tab.
+3. Place on SD card and restart your printer.
+4. The firmware file will be renamed to **firmware.cur** if successful; remove this file from your SD card.
+5. **IMPORTANT:** Run PID tuning using the controller application of your choice. Here are my recommended gcode commands that work fairly well:
 ```
    - M303 E0 S220 C8
    - M301 P<value> I<value> D<value> ; Replace with results
